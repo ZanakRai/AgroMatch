@@ -31,7 +31,11 @@ function Main() {
             <Home />
           </ProtectedRouter>
           } />
-        <Route path="/contact" element={<Contact />} />
+        <Route path="/contact" element={
+          <ProtectedRouter>
+            <Contact />
+          </ProtectedRouter>
+          } />
         <Route path="/about" element={<About />} />
         <Route path="/" element={<Login />} />
         <Route path="/content" element={<Content />} />

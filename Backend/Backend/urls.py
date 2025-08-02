@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from AgroMatch.views import RegisterView,LoginView,PredictionView,Dashboard,LogOut
+from AgroMatch.views import RegisterView,LoginView,PredictionView,Dashboard,LogOut,ManageAccount
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -24,5 +24,6 @@ urlpatterns = [
     path('login/',LoginView.as_view()),
     path('crop_prediction/',PredictionView.as_view()),
     path('dashboard/',Dashboard.as_view()),
-    path('logout/',LogOut.as_view())
+    path('logout/',LogOut.as_view()),
+    path('account/',ManageAccount.as_view()),
 ]

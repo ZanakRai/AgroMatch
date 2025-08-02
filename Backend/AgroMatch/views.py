@@ -50,6 +50,42 @@ class Dashboard(APIView):
         return Response(serializer.data)
 
 
+class ManageAccount(APIView):
+    permission_classes=[IsAuthenticated]
+    authentication_classes=[TokenAuthentication]
+    def put(self,request):
+        user=request.user
+        data=request.data
+
+        username=data.get('username')
+        email=data.get('email')
+        current_password=data.get('old_password')
+        new_password=data.get('new_password')
+
+        if username:
+            user.username=username
+        if email:
+            user.email=email
+
+        if new_password:
+            if not current_password:
+                return Response({'error':'Current password must be needed'})
+            if not user.check_password(current_password):
+                return Response({'error':'Current password cannot match'})
+            
+            user.set_password(new_password)
+            
+
+        user.save()
+        return Response({'message':'Updated account successfully'})
+    
+
+    def delete(self,request):
+        user=request.user
+        user.delete()
+        return Response({'message':'Delete Account Successfully'})
+    
+
 class LogOut(APIView):
     permission_classes=[IsAuthenticated]
     authentication_classes=[TokenAuthentication]
@@ -78,6 +114,8 @@ class PredictionView(APIView):
         predictions=PredictedCrop.objects.all().order_by('-predicted_at')
         serializer=UserPredictedSerializer(predictions,many=True)
         return Response(serializer.data)
+    
+
 
 
 
