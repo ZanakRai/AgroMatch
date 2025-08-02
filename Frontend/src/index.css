@@ -1,0 +1,61 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+html {
+    scroll-behavior: smooth;
+}
+
+.custom-backdrop {
+    backdrop-filter: blur(10px); /* You can adjust the value to control the blur level */
+    background-color: #f1f1f1; /* Custom opacity */
+  }
+
+  @layer components {
+    .nav-item {
+      @apply relative cursor-pointer text-white transition-all duration-300 p-2 md:p-0 hover:text-teal-400;
+  
+      /* Pseudo-element for underline */
+      position: relative;
+      overflow: hidden;
+    }
+  
+    .nav-item::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: #14b8a6; /* Teal color */
+      transition: width 0.4s ease-in-out;
+    }
+  
+    .nav-item:hover::after {
+      width: 100%; /* Expand underline on hover */
+    }
+  
+    .nav-item.active::after {
+      width: 100%; /* Keep underline for active section */
+    }
+  
+    .nav-item.active {
+      color: #14b8a6; /* Highlight active link color */
+    }
+  }
+  
+  @keyframes circularRotate {
+    0% {
+      transform: rotateY(0deg) rotateX(0deg) rotateZ(0deg);
+    }
+    50% {
+      transform: rotateY(180deg) rotateX(-25deg) rotateZ(25deg); /* Tilt and rotate halfway */
+    }
+    100% {
+      transform: rotateY(360deg) rotateX(0deg) rotateZ(0deg); /* Return to the original position */
+    }
+  }
+  .animate-circularRotate {
+    animation: circularRotate 15s linear infinite;
+  }
